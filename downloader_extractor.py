@@ -30,4 +30,4 @@ def sub_download(subs_to_download):
             with zipfile.ZipFile('./subs/temp.zip') as zip_ext:
                 [zip_ext.extract(filex, './subs/') for filex in zip_ext.namelist() if filex.endswith(".srt")]
     except:
-        pass
+        print("An error occurred while downloading subtitles.")
