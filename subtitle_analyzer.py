@@ -6,9 +6,9 @@ from openpyxl.utils.exceptions import IllegalCharacterError
 from pysubparser import parser
 from pysubparser.classes.exceptions import InvalidTimestampError
 from pysubparser.cleaners import ascii, brackets, formatting, lower_case
-from chartGenerator import generate_chart
+from chart_generator import generate_chart
 from downloader_extractor import sub_download
-from word_filter import filter_contractions
+from word_filter import filter_stopwords
 
 # Reads text file which contains top100 rated movies.
 f = open('./lists/movie_list.txt', "r")
@@ -54,9 +54,9 @@ for j in range(len(words)):
     words[j] = words[j].replace("'", '')
 
 # Filter some words (e.g. his, she's, the, a, etc.".
-words = filter_contractions(words)
+words = filter_stopwords(words)
 
-# Keep words more than 10, eleminate the rest.
+# Keep words more than 10, eliminate the rest.
 sorted_words = list(takewhile(lambda i: i[1] > 10, Counter(words).most_common()))
 
 # Export data to the Excel file.
@@ -69,7 +69,7 @@ try:
     for y in range(1, len(sorted_words)):
         wsheet.cell(row=y+1, column=2).value = sorted_words[y-1][1]
     wbook.save("./data_output/Top.Words.List.xlsx")
-    print('Excel file saved in data_output folder.')
+    print('Excel file saved in the "data_output" folder.')
 except IllegalCharacterError:
     print("Illegal char detected.")
 
