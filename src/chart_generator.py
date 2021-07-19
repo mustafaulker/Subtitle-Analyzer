@@ -4,7 +4,7 @@ import pandas as pd
 
 # Generate chart with the data in excel file.
 def generate_chart(excel_file, chart_direction):
-    data = pd.read_excel(f'./data_output/{excel_file}.xlsx')    # Read excel file
+    data = pd.read_excel(f'data_output/{excel_file}.xlsx')    # Read excel file
     top_100 = data.head(100)  # Get top 100 words and their counts
 
     if chart_direction == "Horizontal":
@@ -32,9 +32,9 @@ def generate_chart(excel_file, chart_direction):
         plt.xlabel('Count')
 
         for index, data in enumerate(top_100['Count']):
-            plt.text(x=data + 18, y=index, s=f"{data}", fontdict=dict(fontsize=7), va="center")
+            plt.text(x=data + 10, y=index, s=f"{data}", fontdict=dict(fontsize=7), va="center")
 
-        plt.savefig('./data_output/vertical-Chart.png')
+        plt.savefig('data_output/vertical-Chart.png')
     else:
         print("Something went wrong. Check excel file or direction input.")
 

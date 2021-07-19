@@ -1,5 +1,5 @@
 # Reading stopwords.txt file's content
-with open('lists/stopwords.txt', encoding='utf8') as infile:
+with open('seed/stopwords.txt', encoding='utf8') as infile:
     stopwords_list = infile.readlines()
 infile.close()
 

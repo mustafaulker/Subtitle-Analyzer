@@ -6,12 +6,12 @@ from openpyxl.utils.exceptions import IllegalCharacterError
 from pysubparser import parser
 from pysubparser.classes.exceptions import InvalidTimestampError
 from pysubparser.cleaners import ascii, brackets, formatting, lower_case
-from chart_generator import generate_chart
-from downloader_extractor import sub_download
-from word_filter import filter_stopwords
+from src.chart_generator import generate_chart
+from src.downloader_extractor import sub_download
+from src.word_filter import filter_stopwords
 
-# Reads text file which contains top100 rated movies.
-f = open('./lists/movie_list.txt', "r")
+# Reads text file which contains IMDB Top 100 movies list.
+f = open('seed/movie_list.txt', "r")
 subs_to_download = f.readlines()
 f.close()
 
@@ -20,13 +20,13 @@ for subs in subs_to_download:
     sub_download(subs)
 
 # Deletes temporary ".zip" file which is created for download subtitles.
-os.remove('./subs/temp.zip')
+os.remove('subs/temp.zip')
 
 all_subs = []
 word_list = ""
 
 # Parse every file with ".srt" extension, in "subs" folder then append them to a list.
-[all_subs.append(parser.parse(f'./subs/{strs}')) for strs in os.listdir("./subs") if strs.endswith(".srt")]
+[all_subs.append(parser.parse(f'subs/{strs}')) for strs in os.listdir("subs") if strs.endswith(".srt")]
 
 # For every sub file in list, clean subtitles. Adds every line to a list.
 for movie_sub in all_subs:
@@ -53,7 +53,7 @@ words = word_list.split()
 for j in range(len(words)):
     words[j] = words[j].replace("'", '')
 
-# Filter some words (e.g. his, she's, the, a, etc.".
+# Filter some words (e.g. his, she's, the, a, etc.)
 words = filter_stopwords(words)
 
 # Keep words more than 10, eliminate the rest.
@@ -68,10 +68,11 @@ try:
         wsheet.cell(row=x+1, column=1).value = (sorted_words[x-1][0]).encode("ascii", errors="ignore")
     for y in range(1, len(sorted_words)):
         wsheet.cell(row=y+1, column=2).value = sorted_words[y-1][1]
-    wbook.save("./data_output/Top.Words.List.xlsx")
+    wbook.save("data_output/Top.Words.List.xlsx")
     print('Excel file saved in the "data_output" folder.')
 except IllegalCharacterError:
     print("Illegal char detected.")
 
 # Generate chart of data.
 generate_chart("Top.Words.List", "Horizontal")
+generate_chart("Top.Words.List", "Vertical")

@@ -1,3 +1,4 @@
+import os
 import time
 import zipfile
 
@@ -30,15 +31,16 @@ def sub_download(subs_to_download):
             resp = requests.get("http://subscene.com" + lin)
 
             # Writing content to a temporary zip file
-            temp_zip = open(f'./subs/temp.zip', 'wb')
+            os.makedirs(os.path.dirname('subs/temp.zip'), exist_ok=True)
+            temp_zip = open(f'subs/temp.zip', 'wb+')
             for chunk in resp.iter_content(chunk_size=100000):
                 temp_zip.write(chunk)
                 temp_zip.close()
             time.sleep(1)
 
             # Unzip the temp file to subs folder
-            with zipfile.ZipFile('./subs/temp.zip') as temp_zip:
-                [temp_zip.extract(files_in_zip, './subs/')
+            with zipfile.ZipFile('subs/temp.zip') as temp_zip:
+                [temp_zip.extract(files_in_zip, 'subs/')
                  for files_in_zip in temp_zip.namelist() if files_in_zip.endswith(".srt")]
     except:
         print("An error occurred while downloading subtitles.")
