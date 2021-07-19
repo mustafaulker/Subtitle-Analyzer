@@ -1,17 +1,27 @@
 # Subtitle Analyzer
-Downloads the subtitles of IMDB Top 100 movies, extracts them out of the ".zip" file.
-Lists all words and their counts. Filters stopwords. (e.g. "the", "a/an", "him", etc.)
-Analyzes the data obtained, generates a chart in the desired direction for the Top 100 words.
+
+Downloads the subtitles of IMDB Top 100 movies.  
+Lists all the words in the subtitles and their counts in an Excel file. Filters stopwords. (e.g. "the", "a/an", "him",
+etc.)  
+Generates word/count charts based on the data obtained.
 
 ## Usage
-Run `python subtitle_analyzer.py` in the project folder.
 
-### Execution environment
-- Only compatible with > py 3.6
-- 'movie_list.txt' & 'stopwords.txt' files must be in the 'lists' folder, which must be inside execution direction.
+### Requirements
 
-#### Known issues
-- Subtitle downloader couldn't download all the subtitles in the list.
-- Word analyzer couldn't analyze all the words in the word list due to char encoding issues.
-- ~~Some word's full forms and contraction forms counted separately (e.g. "I am" - "I'm", "he will" - "he'll")~~
-- ~~Stopwords should be expanded. (i.e. counts, letters)~~
+- Python >= 3.6
+- Run `pip install -r requirements.txt` for other dependencies.
+
+### Execution
+
+Run `python src/subtitle_analyzer.py` in the project directory.
+
+### Output
+
+Generated Excel file and Chart images will be in the data_output file under project directory.
+
+#### Output Example
+
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/48808788/126179064-154ad914-4b8a-4d96-85a4-8ed861686982.png" alt="Horizontal Chart">
+</p>
