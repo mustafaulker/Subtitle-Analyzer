@@ -6,9 +6,9 @@ from openpyxl.utils.exceptions import IllegalCharacterError
 from pysubparser import parser
 from pysubparser.classes.exceptions import InvalidTimestampError
 from pysubparser.cleaners import ascii, brackets, formatting, lower_case
-from src.chart_generator import generate_chart
-from src.downloader_extractor import sub_download
-from src.word_filter import filter_stopwords
+from chart_generator import generate_chart
+from downloader_extractor import sub_download
+from word_filter import filter_stopwords
 
 # Reads text file which contains IMDB Top 100 movies list.
 f = open('seed/movie_list.txt', "r")
